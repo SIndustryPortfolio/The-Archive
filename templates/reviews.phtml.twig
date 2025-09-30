@@ -1,0 +1,305 @@
+{% include "/shared/topbar.phtml.twig" %}
+
+<head>
+    <style></style>
+</head>
+
+<body>
+    <br>
+
+    <h2 class="text-center">Reviews</h2>
+    <h5 class="text-center">{{ Book.Title }}</h5>
+
+    <br>
+
+    <div class="text-center">
+        <img src="{{ Book.ImageURL }}" style="width: 10rem; height: 10rem;" class="img-fluid" alt="">
+    </div>
+
+    <br>
+    <br>
+
+    {% if UserReview is not defined %}
+        <div class="modal fade" id="AddReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <form action="/addReview" method="POST">
+                        <input type="hidden" name="ReviewBookId" value="{{ Book.Id }}"/>
+
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="fw-bold" for="Rating" style="float: left;">Rating</label>
+
+                                <br>
+
+                                {% for i in 1.. 5 %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ReviewRating" id="{{ i }}Star" value="{{ i }}">
+                                        <label class="form-check-label" for="{{ i }}Star">
+                                            {% for x in 1..i %}
+                                                ★
+                                            {% endfor %}
+
+                                            {% if i < 5 %}
+                                                {% for x in 1.. 5 - i %}
+                                                    ☆
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            | {{ i }} Stars
+                                        </label>
+                                    </div>
+                                {% endfor %}
+
+                                <small id="RatingHelp" class="form-text text-muted" style="float: left;"></small>
+                            </div>
+                            <br>
+                            <br>
+
+                            <div class="form-group" style="">
+                                <label class="fw-bold" for="Title" style="float: left;">Content</label>
+                                <textarea class="form-control" id="ContentInput" name="ReviewContent" aria-describedby="ContentHelp" placeholder="Enter review details" rows="3"></textarea>
+                                <small id="ContentHelp" class="form-text text-muted" style="float: left;"></small>
+                            </div>
+                            <br>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Add Review">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    {% elseif UserReview is defined %}
+
+        <div class="modal fade" id="EditReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Review</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <form action="/editReview" method="POST" id="EditForm">
+                        <input type="hidden" name="ReviewBookId" value="{{ Book.Id }}"/>
+
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label class="fw-bold" for="Rating" style="float: left;">Rating</label>
+
+                                <br>
+
+                                {% for i in 1.. 5 %}
+                                    <div class="form-check">
+
+
+                                        {% if UserReview.rating == i %}
+                                            <input class="form-check-input" type="radio" name="ReviewRating" id="{{ i }}Star" value="{{ i }}" checked>
+                                        {% else %}
+                                            <input class="form-check-input" type="radio" name="ReviewRating" id="{{ i }}Star" value="{{ i }}">
+                                        {% endif %}
+
+
+                                        <label class="form-check-label" for="{{ i }}Star">
+                                            {% for x in 1..i %}
+                                                ★
+                                            {% endfor %}
+
+                                            {% if i < 5 %}
+                                                {% for x in 1.. 5 - i %}
+                                                    ☆
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            | {{ i }} Stars
+                                        </label>
+                                    </div>
+                                {% endfor %}
+
+                                <small id="RatingHelp" class="form-text text-muted" style="float: left;"></small>
+                            </div>
+                            <br>
+                            <br>
+
+                            <div class="form-group" style="">
+                                <label class="fw-bold" for="Title" style="float: left;">Content</label>
+
+                                <textarea class="form-control" id="ContentInput" name="ReviewContent" aria-describedby="ContentHelp" placeholder="Enter review details" rows="3">{{ UserReview.content }}</textarea>
+                                <small id="ContentHelp" class="form-text text-muted" style="float: left;"></small>
+                            </div>
+                            <br>
+
+                        </div>
+
+                    </form>
+
+                    <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Confirm Edit" form="EditForm">
+
+                            <form action="/deleteReview" method="POST" style="float:left;">
+                                <input type="hidden" name="ReviewBookId" value="{{ Book.Id }}">
+
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="card" style="width: 80%; margin: auto;">
+        <div class="card-header">
+            Overview
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Average rating:
+                {% if Book.AverageRating > 0 %}
+                    {% for i in 1.. Book.AverageRating %}
+                        ⭐
+                    {% endfor %}
+                {% endif %}
+
+                | {{ Book.AverageRating }} out of 5 stars
+            </h5>
+
+            <h6 class="card-subtitle mb-2 text-muted">{{ NumberOfReviews }} Reviews</h6>
+
+            <!--<p class="card-text">Description: </p>-->
+            <br>
+
+            {% if UserReview is not defined %}
+                <a href="#" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#AddReview">Add review</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+
+    {% if UserReview is defined %}
+        <div class="card" style="width: 80%; margin: auto;">
+            <div class="card-header">
+                Your review
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">Your rating:
+                    {% for i in 1.. UserReview.rating %}
+                        ⭐
+                    {% endfor %}
+
+                    | {{ UserReview.rating }} out of 5 stars
+                </h5>
+
+                {% if (UserReview.content is defined) and (UserReview.content != "") %}
+                    <p class="card-text"> "{{ UserReview.content }}" </p>
+                {% else %}
+                    <p class="card-text"> No review content given </p>
+                {% endif %}
+                <br>
+
+                <a href="#" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#EditReview">Edit review</a>
+            </div>
+        </div>
+    {% endif %}
+
+    <br>
+
+    <div class="text-center" style="width: 80%; margin: auto;">
+        <h3 style="float: left;"> All reviews | Page: {{ PageNumber }} / {{ MaxPageNumber }} </h3>
+
+        <br>
+
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Username</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for Index, ReviewInfo in Reviews %}
+                <tr>
+                    <td> {{ ReviewInfo.iD }}  </td>
+                    <td>
+                        <p>
+                        {% for i in 1.. ReviewInfo.rating %}
+                            ⭐
+                        {% endfor %}
+                        </p>
+                    </td>
+                    <td> {{ ReviewInfo.username }} </td>
+                    <td> {{ ReviewInfo.content }} </td>
+                    <td>
+                        {% if User.username == ReviewInfo.username %}
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditReview">Edit</button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
+
+        <ul style="list-style: none; ">
+            {% set currentPageNumber = PageNumber %}
+            {% for i in 1 .. 3 %}
+                {% if currentPageNumber > 1 %}
+                    {% set currentPageNumber = currentPageNumber - 1 %}
+
+                    <li style= "display: inline-block">
+                        <form action="/reviews">
+                            <input type="hidden" name="PageNumber" value="{{ currentPageNumber }}"/>
+                            <input type="hidden" name="BookTitle" value="{{ Book.Title }}"/>
+                            <input type="submit" class="btn btn-light" value="{{ currentPageNumber }}"/>
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <li style="display: inline-block">
+                <form action="/reviews">
+                    <input type="hidden" name="PageNumber" value="{{ PageNumber }}"/>
+                    <input type="hidden" name="BookTitle" value="{{ Book.Title }}"/>
+                    <input type="submit" class="btn btn-secondary" value="{{ PageNumber }}"/>
+                </form>
+            </li>
+
+            {% set currentPageNumber = PageNumber %}
+            {% for i in 1 .. 3 %}
+                {% if currentPageNumber < MaxPageNumber %}
+                    {% set currentPageNumber = currentPageNumber + 1 %}
+
+                    <li style="display: inline-block">
+                        <form action="/reviews">
+                            <input type="hidden" name="PageNumber" value="{{ currentPageNumber }}"/>
+                            <input type="hidden" name="BookTitle" value="{{ Book.Title }}"/>
+                            <input type="submit" class="btn btn-light" value="{{ currentPageNumber }}"/>
+                        </form>
+                    </li>
+
+                {% endif %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</body>
+
+

@@ -1,0 +1,28 @@
+//dd($request); //Data dump with Symfony
+       //dd($request->query); //Data dump any params given
+       //dd($request->getContent()); // Data dump JSON content
+        //dd($request->toArray()); // Dump data in array
+
+        //return new Response("Hello World!");
+
+        //$response = new Response();
+        //$response->headers->set("Content-Type", "text/html");
+        //$response->setContent("<h1>Hello World</h1><p>Hello World</p>");
+
+        //return $response;
+
+        //$response = new Response();
+
+        //$this->render("topbar.phtml.twig");
+        //return $this->render('base.phtml.twig', array('var_name' => 1));
+
+        /*if (!isset($_SESSION["SessionToken"]))
+        {
+            return $this->render("login.html.twig");
+        }
+        else
+        {
+            return $this->render("dashboard.html.twig");
+        }*/
+
+        //return $this->render("topbar.phtml.twig", array("pages" => $pageNames));

@@ -1,0 +1,34 @@
+{% include "/shared/topbar.phtml.twig" %}
+
+<head>
+    <style></style>
+</head>
+
+<body>
+    <br>
+
+    <h2 class="text-center">Register</h2>
+
+    <br>
+    <br>
+
+    <div class="card" style="width: 18rem; margin: auto;">
+        <div class="card-header">
+            <h5 class="card-title text-center">Sign Up</h5>
+
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted text-center">Enter Credentials Below</h6>
+            <br>
+
+            <div class="text-center">
+                {{ form(RegisterForm) }}
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <h6 class="card-title">Already have an account?</h6>
+            <a class="nav-link-blue" style="margin: auto" href="/login">Login</a>
+        </div>
+    </div>
+</body>
+

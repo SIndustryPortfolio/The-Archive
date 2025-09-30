@@ -1,0 +1,111 @@
+{
+  "Pages":
+  {
+    "Home": {
+      "Title": "\uD83C\uDFE0 Home",
+      "Route": "/",
+      "Description": "Return to the dashboard!",
+      "ButtonText": "Home",
+      "DisplayInTopBar": true,
+      "DisplayInDashboard": false,
+      "UserTypes": ["Reader", "Author", "Admin"]
+    },
+    "Books":
+    {
+      "Title": "\uD83D\uDCDA Books",
+      "Route": "/books",
+      "Description": "Search through all available book reviews!",
+      "ButtonText": "View",
+      "DisplayInTopBar": true,
+      "DisplayInDashboard": true,
+      "UserTypes": ["Reader", "Author", "Admin"]
+    },
+    "Create":
+    {
+      "Title": "✍\uFE0F Create",
+      "Route": "/create",
+      "Description": "Add a book to the library",
+      "ButtonText": "Create",
+      "DisplayInTopBar": false,
+      "DisplayInDashboard": true,
+      "UserTypes": ["Author", "Admin"]
+    },
+    "Profile":
+    {
+      "Title": "\uD83D\uDC64 Profile",
+      "Route": "/profile",
+      "Description": "Edit your personal account details!",
+      "ButtonText": "Edit",
+      "DisplayInTopBar": false,
+      "DisplayInDashboard": true,
+      "UserTypes": ["Reader", "Author", "Admin"]
+    }
+  },
+
+  "Genres":
+  {
+    "Horror":
+    {
+      "ButtonType": "dark"
+    },
+    "Comedy":
+    {
+      "ButtonType": "warning"
+    },
+    "Thriller":
+    {
+      "ButtonType": "info"
+    },
+    "Romance":
+    {
+      "ButtonType": "danger"
+    },
+    "Sci-Fi":
+    {
+      "ButtonType": "light"
+    },
+    "Non-Fiction":
+    {
+      "ButtonType": "secondary"
+    },
+    "Fiction":
+    {
+      "ButtonType": "primary"
+    }
+  },
+  "UserTypes":
+  {
+    "Guest":
+    {
+      "Id": 0,
+      "Level": 0
+    },
+    "Reader":
+    {
+      "Id": 1,
+      "Level": 1
+    },
+    "Author":
+    {
+      "Id": 2,
+      "Level": 2
+    },
+    "Admin":
+    {
+      "Id": 3,
+      "Level": 3
+    }
+  },
+
+  "Site":
+  {
+    "Title": "\uD83D\uDCDA The Archive",
+    "Abbreviation": "\uD83D\uDCDA T.A",
+    "MaxItemsPerPage": 10
+  },
+
+  "Session":
+  {
+    "TokenLength": 255
+  }
+}

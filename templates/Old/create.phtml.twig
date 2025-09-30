@@ -1,0 +1,63 @@
+{% include "/shared/topbar.phtml.twig" %}
+
+<head>
+    <style></style>
+</head>
+
+<body>
+    <br>
+
+    <h2 class="text-center">Create</h2>
+    <br>
+
+    <div class="text-center">
+        <div class="card" style="width: 36rem; margin: 1rem; display: inline-flex;">
+            <div class="card-header">
+                <h5 class="card-title text-center">Create Book</h5>
+            </div>
+            <div class="card-body">
+                <form action="/create" method="POST">
+
+                    <div class="form-group" style="">
+                        <label class="fw-bold" for="BookTitleInput" style="float: left;">Title</label>
+                        <input type="text" class="form-control" name="BookTitle" id="BookTitleInput" aria-describedby="TitleHelp" placeholder="Enter book title">
+                        <small id="BookTitleHelp" class="form-text text-muted" style="float: left;">This is a Case-Sensitive field*</small>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div class="form-group" style="">
+                        <label class="fw-bold" for="BookAuthorInput" style="float: left;">Author</label>
+                        <input type="text" class="form-control" name="BookAuthor" id="BookAuthorInput" aria-describedby="BookAuthorHelp" placeholder="Enter book author">
+                        <small id="BookAuthorHelp" class="form-text text-muted" style="float: left;">This is a Case-Sensitive field*</small>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div class="form-group" style="">
+                        <label class="fw-bold" for="BookDescriptionInput" style="float: left;">Book Description</label>
+                        <textarea class="form-control" id="BookDescriptionInput" name="BookDescription" placeholder="Enter book description" rows="3"></textarea>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div class="mb-3">
+                        <label class="fw-bold" for="BookCoverFile" style="float: left;">Book Cover</label>
+                        <input class="form-control" type="file" id="BookCoverFile">
+                    </div>
+
+                </form>
+                <br>
+                <p class="text-center"></p>
+            </div>
+            <div class="card-footer text-center">
+                <input type="submit" class="btn btn-success" value="Create"/>
+            </div>
+        </div>
+    </div>
+
+</body>
+

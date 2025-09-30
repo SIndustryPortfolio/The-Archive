@@ -1,0 +1,50 @@
+{% include "/shared/topbar.phtml.twig" %}
+
+<head>
+    <style></style>
+</head>
+
+<body>
+    <br>
+
+    <h2 class="text-center">Profile</h2>
+
+    <br>
+    <br>
+
+    <div class="text-center">
+        <div class="card" style="width: 18rem; margin: auto; display: inline-block;">
+            <div class="card-header">
+                <h5 class="card-title text-center">Edit Profile</h5>
+            </div>
+            <div class="card-body">
+                <br>
+
+                <div class="text-center">
+                    {{ form(EditProfileForm) }}
+                </div>
+
+            </div>
+            <div class="card-footer text-center">
+
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: auto; display: inline-block;">
+            <div class="card-header">
+                <h5 class="card-title text-center">API Access</h5>
+            </div>
+            <div class="card-body">
+                <br>
+
+                <div class="text-center" style="display: inline-block">
+                    {{  form(ApiTokenForm) }}
+                </div>
+            </div>
+            <div class="card-footer text-center">
+
+            </div>
+        </div>
+    </div>
+</body>
+

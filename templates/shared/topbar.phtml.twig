@@ -1,0 +1,86 @@
+{% extends "shared/base.phtml.twig" %}
+
+{% block title %}{{ Site.Abbreviation }} - {{ CurrentPage }}{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-sm bg-light">
+        <div class="container-fluid">
+            <ul class="navbar-nav" style="float:left;">
+                <li class="nav-item" style="margin-right: 1rem;">
+                    <a href="{{ Pages["Home"]["Route"] }}" style="text-decoration: none; text-underline: none;">
+                        <h3 class="text-center">{{ Site.Title }}</h3>
+                    </a>
+                </li>
+
+                {% for pageName, pageInfo in Pages %}
+
+                    {% if pageInfo.DisplayInTopBar %}
+                        <li class="nav-item">
+                            {% if CurrentPage == pageName %}
+                                <a class="nav-link fw-bold" href="{{ pageInfo["Route"] }}">{{ pageName }}</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ pageInfo["Route"] }}">{{ pageName }}</a>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+            </ul>
+
+            <ul class="navbar-nav" style="float:right;">
+                {% if User is defined and User is not null %}
+
+                    <div class="modal fade" id="ConfirmLogoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirm logout</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <p>Are you sure you would like to log out of your account?</p>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <a class="btn btn-danger" href="/logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <li class="nav-item">
+                        <p class="nav-link fw-bold">Role: {{ User.usertype.name }}</p>
+                    </li>
+
+                    <li class="nav-item text-center" style="margin-left: .5rem; margin-right: .5rem;">
+                        <a href="{{ Pages["Profile"]["Route"] }}">
+                            <img src="{{User.profilepictureurl}}" style="width: 2.5rem; height: 2.5rem;" class="img-fluid" alt="">
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="float: right;">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ConfirmLogoutModal">Logout</a>
+
+                        <!--<a class="nav-link" href="/logout">Logout</a>-->
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        {% if CurrentPage == "Login" %}
+                            <a class="nav-link fw-bold" href="/login">Login</a>
+                        {% else %}
+                            <a class="nav-link" href="/login">Login</a>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <p class="text-center">Server Region: {{ Server["Region"] }}</p>
+
+
+{% endblock %}

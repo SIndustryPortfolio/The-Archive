@@ -1,0 +1,36 @@
+{% include "/shared/topbar.phtml.twig" %}
+
+<head>
+    <style></style>
+</head>
+
+<body>
+    <br>
+
+    <h2 class="text-center">Home</h2>
+    <h5 class="text-center">Welcome back, {{ User.username }} 😊</h5>
+    <br>
+
+    <div class="text-center">
+        {% for pageName, pageInfo in Pages %}
+            {% if (pageInfo.DisplayInDashboard) and (User.usertype.name in pageInfo.UserTypes) %}
+                <div class="card" style="width: 18rem; margin: 1rem; display: inline-flex;">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">{{ pageInfo.Title }}</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <br>
+                        <p class="text-center">{{ pageInfo.Description }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a class="btn btn-primary" href="{{ pageInfo.Route }}">{{ pageInfo.ButtonText }}</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+
+
+
