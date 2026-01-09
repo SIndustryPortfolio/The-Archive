@@ -1,6 +1,6 @@
 # Book Review Platform (Symfony + Google Books)
 
-A **PHP Symfony** web application that allows users to **browse, review, and manage books** using the **:contentReference[oaicite:0]{index=0}** as its primary data source.
+A **PHP Symfony** web application that allows users to **browse, review, and manage books** using the **Google Books API** as its primary data source.
 
 The platform is built as a **versioned REST API**, designed for scalability, security, and clean separation between frontend and backend concerns.
 
@@ -22,10 +22,10 @@ All functionality is exposed through a structured JSON-based REST API.
 
 ## 🧩 Architecture
 
-- **Framework:** :contentReference[oaicite:1]{index=1}
+- **Framework:** Symfony
 - **API Style:** REST (JSON request/response)
 - **Auth:** Session-based tokens (cookie authentication)
-- **Database:** :contentReference[oaicite:2]{index=2}
+- **Database:** MySQL
 - **External APIs:** Google Books, Google Gemini, Discord Webhooks, IP-API
 
 ---
